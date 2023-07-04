@@ -35,7 +35,10 @@ class SuratMasukAdmin2Controller extends Controller
                         $status     = '<a href="javascript:void(0)" class="badge badge-primary">Dilaksanakan</a>';
                     }
                     if ($data->status == 'diverifikasi-kasubag') {
-                        $status     = '<a href="javascript:void(0)" class="badge badge-warning">Diverfikasi Kasubag</a>';
+                        $status     = '<a href="javascript:void(0)" class="badge badge-warning">Diverfikasi Kasubag</a>
+                        <br>
+                        ' . date('d-m-Y', strtotime($data->tanggal_konfirmasi_admin2)) . '
+                        ';
                     }
                     if ($data->status == 'diverifikasi-sekdin') {
                         $status     = '<a href="javascript:void(0)" class="badge badge-secondary">Diverifikasi Sekdin</a>';
@@ -45,6 +48,11 @@ class SuratMasukAdmin2Controller extends Controller
                     }
                     return $status;
                 })
+                //h_tanggal_terima
+                ->addColumn('h_tanggal_terima', function ($data) {
+                    $tanggal_terima = date('d-m-Y', strtotime($data->tanggal_terima));
+                    return $tanggal_terima;
+                })
                 ->addColumn('action', function ($row) {
                     $actionBtn = '
                             <center>
@@ -53,7 +61,7 @@ class SuratMasukAdmin2Controller extends Controller
                             </center>';
                     return $actionBtn;
                 })
-                ->rawColumns(['action', 'h_status'])
+                ->rawColumns(['action', 'h_status','h_tanggal_terima'])
                 ->make(true);
         }
 
@@ -106,6 +114,7 @@ class SuratMasukAdmin2Controller extends Controller
                 SuratMasuk::find($request->id)->update(
                     [
                         'status'                      => 'diverifikasi-sekdin',
+                        'tanggal_konfirmasi_admin2'   => date('Y-m-d H:i:s'),
                     ]
                 );
             }else{

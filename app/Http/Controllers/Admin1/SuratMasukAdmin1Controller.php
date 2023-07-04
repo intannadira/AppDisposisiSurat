@@ -25,7 +25,11 @@ class SuratMasukAdmin1Controller extends Controller
                 //status
                 ->addColumn('h_status', function ($data) {
                     if ($data->status == 'diajukan') {
-                        $status     = '<a href="javascript:void(0)" class="badge badge-danger">Menunggu</a>';
+                        $status     = '
+                        <a href="javascript:void(0)" class="badge badge-danger">Menunggu</a>
+                        <br>
+                        ' . date('d-m-Y', $data->tanggal_konfirmasi_admin1) . '
+                        ';
                     }
                     if ($data->status == 'didisposisi') {
                         $status     = '<a href="javascript:void(0)" class="badge badge-warning">Disposisi</a>';
@@ -44,6 +48,11 @@ class SuratMasukAdmin1Controller extends Controller
                     }
                     return $status;
                 })
+                //h_tanggal_terima
+                ->addColumn('h_tanggal_terima', function ($data) {
+                    $tanggal_terima = date('d-m-Y', strtotime($data->tanggal_terima));
+                    return $tanggal_terima;
+                })
                 ->addColumn('action', function ($row) {
                     $actionBtn = '
                             <center>
@@ -53,7 +62,7 @@ class SuratMasukAdmin1Controller extends Controller
                             </center>';
                     return $actionBtn;
                 })
-                ->rawColumns(['action', 'h_status'])
+                ->rawColumns(['action', 'h_status','h_tanggal_terima'])
                 ->make(true);
         }
 
@@ -105,6 +114,7 @@ class SuratMasukAdmin1Controller extends Controller
                     [
                         'tindakan'                    => $request->tindakan,
                         'status'                      => 'diverifikasi-kasubag',
+                        'tanggal_konfirmasi_admin1'   => date('Y-m-d H:i:s'),
                     ]
                 );
             }else{

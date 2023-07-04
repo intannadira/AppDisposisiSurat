@@ -46,6 +46,7 @@
                                     <th>Tanggal Diterima</th>
                                     <th>Status</th>
                                     <th>Instansi</th>
+                                    <th>Kategori</th>
                                     <th>Perihal</th>
                                     <th>Action</th>
                                 </tr>
@@ -100,9 +101,10 @@
             columns: [
                 {data: 'DT_RowIndex', name: 'DT_RowIndex' , orderable: false, searchable: false},
                 {data: 'no_urut', name: 'no_urut'},
-                {data: 'tanggal_terima', name: 'tanggal_terima'},
+                {data: 'h_tanggal_terima', name: 'h_tanggal_terima'},
                 {data: 'h_status', name: 'h_status'},
                 {data: 'dari_instansi', name: 'dari_instansi'},
+                {data: 'h_kategori_surat', name: 'h_kategori_surat'},
                 {data: 'perihal', name: 'perihal'},
                 {data: 'action', name: 'action'},
             ],

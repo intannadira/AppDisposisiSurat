@@ -22,25 +22,58 @@ class SuratMasukController extends Controller
                 ->addIndexColumn()
                 //status
                 ->addColumn('h_status', function ($data) {
+                    if ($data->status == 'diverifikasi-sekdin') {
+                        $status     = '<a href="javascript:void(0)" class="badge badge-danger">Diverifikasi Sekdin</a>
+                        <br>
+                        ' . date('d-m-Y', strtotime($data->tanggal_konfirmasi_admin2)) . '
+                        ';
+                    }
                     if ($data->status == 'diajukan') {
-                        $status     = '<a href="javascript:void(0)" class="badge badge-danger">Menunggu</a>';
+                        $status     = '<a href="javascript:void(0)" class="badge badge-danger">Menunggu</a>
+                        <br>
+                        ' . date('d-m-Y', strtotime($data->created_at)) . '
+                        ';
                     }
                     if ($data->status == 'didisposisi') {
-                        $status     = '<a href="javascript:void(0)" class="badge badge-warning">Disposisi</a>';
+                        $status     = '<a href="javascript:void(0)" class="badge badge-warning">Disposisi</a>
+                        <br>
+                        ' . date('d-m-Y', strtotime($data->tanggal_konfirmasi_admin3)) . '
+                        ';
                     }
                     if ($data->status == 'dilaksanakan') {
                         $status     = '<a href="javascript:void(0)" class="badge badge-primary">Dilaksanakan</a>';
                     }
                     if ($data->status == 'diverifikasi-kasubag') {
-                        $status     = '<a href="javascript:void(0)" class="badge badge-warning">Diverfikasi Kasub</a>';
-                    }
-                    if ($data->status == 'diverifikasi-sekdin') {
-                        $status     = '<a href="javascript:void(0)" class="badge badge-secondary">Diverifikasi Sekdin</a>';
+                        $status     = '<a href="javascript:void(0)" class="badge badge-warning">Diverfikasi Kasub</a>
+                        <br>
+                        ' . date('d-m-Y', strtotime($data->tanggal_konfirmasi_admin1)) . '
+                        ';
                     }
                     if ($data->status == 'selesai') {
-                        $status     = '<a href="javascript:void(0)" class="badge badge-success">Selesai</a>';
+                        $status     = '<a href="javascript:void(0)" class="badge badge-success">Selesai</a>
+                        <br>
+                        ' . date('d-m-Y', strtotime($data->tanggal_penyelesaian)) . '
+                        ';
                     }
                     return $status;
+                })
+                //h_kategori_surat
+                ->addColumn('h_kategori_surat', function ($data) {
+                    if ($data->kategori_surat == 'segera') {
+                        $kategori_surat     = '<a href="javascript:void(0)" class="badge badge-warning">Segera</a>';
+                    }
+                    if ($data->kategori_surat == 'sangat-segera') {
+                        $kategori_surat     = '<a href="javascript:void(0)" class="badge badge-danger">Sangat Segera</a>';
+                    }
+                    if ($data->kategori_surat == 'biasa') {
+                        $kategori_surat     = '<a href="javascript:void(0)" class="badge badge-primary">Biasa</a>';
+                    }
+                    return $kategori_surat;
+                })
+                //h_tanggal_terima
+                ->addColumn('h_tanggal_terima', function ($data) {
+                    $tanggal_terima = date('d-m-Y', strtotime($data->tanggal_terima));
+                    return $tanggal_terima;
                 })
                 ->addColumn('action', function ($row) {
                     $actionBtn = '
@@ -51,7 +84,7 @@ class SuratMasukController extends Controller
                             </center>';
                     return $actionBtn;
                 })
-                ->rawColumns(['action', 'h_status'])
+                ->rawColumns(['action', 'h_status','h_kategori_surat','h_tanggal_terima'])
                 ->make(true);
         }
 

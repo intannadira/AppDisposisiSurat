@@ -29,6 +29,9 @@ class SuratMasuk extends Model
             'tindakan_kadin',
             'catatan_kadin',
             'tanggal_penyelesaian',
+            'tanggal_konfirmasi_admin1',
+            'tanggal_konfirmasi_admin2',
+            'tanggal_konfirmasi_admin3',
     ];
 
     public function jabatan_bidang()

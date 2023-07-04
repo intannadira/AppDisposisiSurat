@@ -38,7 +38,10 @@ class SuratMasukAdmin3Controller extends Controller
                         $status     = '<a href="javascript:void(0)" class="badge badge-warning">Diverfikasi Kasubag</a>';
                     }
                     if ($data->status == 'diverifikasi-sekdin') {
-                        $status     = '<a href="javascript:void(0)" class="badge badge-danger">Diverifikasi Sekdin</a>';
+                        $status     = '<a href="javascript:void(0)" class="badge badge-danger">Diverifikasi Sekdin</a>
+                        <br>
+                        ' . date('d-m-Y', $data->tanggal_konfirmasi_admin2) . '
+                        ';
                     }
                     if ($data->status == 'selesai') {
                         $status     = '<a href="javascript:void(0)" class="badge badge-success">Selesai</a>';
@@ -118,6 +121,7 @@ class SuratMasukAdmin3Controller extends Controller
                         'tindakan_kadin'              => $request->tindakan_kadin,
                         'catatan_kadin'               => $request->catatan_kadin,
                         'tanggal_penyelesaian'        => date('Y-m-d H:i:s'),
+                        'tanggal_konfirmasi_admin3'   => date('Y-m-d H:i:s'),
                     ]
                 );
 

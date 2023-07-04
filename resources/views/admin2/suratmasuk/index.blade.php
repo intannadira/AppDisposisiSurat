@@ -97,7 +97,7 @@
             columns: [
                 {data: 'DT_RowIndex', name: 'DT_RowIndex' , orderable: false, searchable: false},
                 {data: 'no_urut', name: 'no_urut'},
-                {data: 'tanggal_terima', name: 'tanggal_terima'},
+                {data: 'h_tanggal_terima', name: 'h_tanggal_terima'},
                 {data: 'h_status', name: 'h_status'},
                 {data: 'dari_instansi', name: 'dari_instansi'},
                 {data: 'perihal', name: 'perihal'},
