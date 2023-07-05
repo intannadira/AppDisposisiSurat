@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\SuperAdmin;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\DB;
+use App\Models\SuratMasuk;
+use App\Models\SuratKeluar;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 
 class HomeSuperAdminController extends Controller
 {
@@ -23,6 +25,38 @@ class HomeSuperAdminController extends Controller
             'total_surat_selesai'   => $total_surat_selesai,
         ]);
     }
+
+    public function show(Request $request, $id)
+    {
+        $total_surat_masuk = SuratMasuk::where('tanggal_surat', '>=', $request->get('awal'))
+            ->where('tanggal_surat', '<=', $request->get('akhir'))
+            ->count();
+
+        $total_surat_keluar = SuratKeluar::where('tanggal_surat', '>=', $request->get('awal'))
+            ->where('tanggal_surat', '<=', $request->get('akhir'))
+            ->count();
+
+        $total_surat_diproses = SuratMasuk::where('tanggal_surat', '>=', $request->get('awal'))
+            ->where('tanggal_surat', '<=', $request->get('akhir'))
+            ->whereIn('status', ['diajukan', 'didisposisi', 'dilaksanakan', 'diverifikasi-kasubag', 'diverifikasi-sekdin'])
+            ->count();
+
+        $total_surat_selesai = SuratMasuk::where('tanggal_surat', '>=', $request->get('awal'))
+            ->where('tanggal_surat', '<=', $request->get('akhir'))
+            ->where('status', '=', 'selesai')
+            ->count();
+
+        $array = array(
+            'total_surat_masuk'     => $total_surat_masuk,
+            'total_surat_keluar'    => $total_surat_keluar,
+            'total_surat_diproses'  => $total_surat_diproses,
+            'total_surat_selesai'   => $total_surat_selesai,
+
+        );
+
+        return response()->json($array);
+    }
+
 
     function total_surat_masuk(){
         $surat_masuk = DB::table('surat_masuk')
