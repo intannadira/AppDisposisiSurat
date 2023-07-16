@@ -28,7 +28,7 @@ class SuratMasukAdmin1Controller extends Controller
                         $status     = '
                         <a href="javascript:void(0)" class="badge badge-danger">Menunggu</a>
                         <br>
-                        ' . date('d-m-Y', $data->tanggal_konfirmasi_admin1) . '
+                        ' . date('d-m-Y', strtotime($data->tanggal_konfirmasi_admin2)) . '
                         ';
                     }
                     if ($data->status == 'didisposisi') {
