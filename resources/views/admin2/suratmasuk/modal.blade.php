@@ -83,7 +83,7 @@
                             <label>Tindakan</label>
                             <select class="form-control selectpicker" name="tindakan">
                                 <option value="">-- Pilih Tindakan --</option>
-                                <option value="revisi">Koreksi ke Petugas</option>
+                                <option value="ditolak">Koreksi ke Petugas</option>
                                 <option value="diajukan">Diajukan</option>
                             </select>
                             <span class="text-danger">

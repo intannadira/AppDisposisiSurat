@@ -73,6 +73,22 @@
                             </span>
                         </div>
                         <div class="col-md-6 col-12 mb-3">
+                            <label>Status</label>
+                            <select class="form-control" name="status">
+                                <option value="">-- Pilih Status --</option>
+                                <option value="diajukan">Diajukan Kembali</option>
+                                <option value="ditolak">Ditolak</option>
+                                <option value="didisposisi">Didisposisi</option>
+                                <option value="dilaksanakan">Dilaksanakan</option>
+                                <option value="diverifikasi-kasubag">Diverifikasi Kasubag</option>
+                                <option value="diverifikasi-sekdin">Diverifikasi Sekdin</option>
+                                <option value="selesai">Didisposisi</option>
+                            </select>
+                            <span class="text-danger">
+                                <strong id="status"></strong>
+                            </span>
+                        </div>
+                        <div class="col-md-6 col-12 mb-3">
                             <label>File Lampiran</label>
                             <input type="file" class="form-control" name="lampiran" placeholder="Masukkan Lampiran">
                             <span class="text-danger">
