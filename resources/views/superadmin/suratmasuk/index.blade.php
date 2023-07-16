@@ -142,6 +142,7 @@
         $('#tanggal_surat').html("");
         $('#kepada').html("");
         $('#lampiran').html("");
+        $('#status').html("");
         $('#kategori_surat').html("");
         $('#status').html("");
         $.ajax({
@@ -218,6 +219,7 @@
         $('#tanggal_terima').html("");
         $('#tanggal_surat').html("");
         $('#kepada').html("");
+        $('#status').html("");
         $('#kategori_surat').html("");
         //Ajax Load data from ajax
         $.ajax({
@@ -233,6 +235,7 @@
                 $('[name="tanggal_terima"]').val(data.tanggal_terima);
                 $('[name="tanggal_surat"]').val(data.tanggal_surat);
                 $('[name="kepada"]').val(data.kepada);
+                $('[name="status"]').val(data.status);
                 $('[name="kategori_surat"]').val(data.kategori_surat);
                 $('#modal-form').modal('show'); // show bootstrap modal when complete loaded
                 $('.modal-title').text('Edit Data Surat Masuk'); // Set title to Bootstrap modal title   

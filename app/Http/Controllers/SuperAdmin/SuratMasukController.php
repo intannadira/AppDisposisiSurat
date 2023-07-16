@@ -162,6 +162,7 @@ class SuratMasukController extends Controller
                     'tanggal_terima'              => $request->tanggal_terima,
                     'kepada'                      => $request->kepada,
                     'kategori_surat'              => $request->kategori_surat,
+                    'status'                      => $request->status,
                     'lampiran'                    => $file_name
                 ]
             );

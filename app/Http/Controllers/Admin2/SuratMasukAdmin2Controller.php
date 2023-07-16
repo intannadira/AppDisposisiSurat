@@ -120,7 +120,7 @@ class SuratMasukAdmin2Controller extends Controller
             }else{
                 SuratMasuk::find($request->id)->update(
                     [
-                        'status'                      => 'diverifikasi-kasubag',
+                        'status'                      => 'ditolak',
                     ]
                 );
             }
