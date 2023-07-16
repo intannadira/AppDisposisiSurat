@@ -27,7 +27,7 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-6 col-12">
-                                <h4 class="header-title">Daftar Histori Surat</h4>
+                                <h4 class="header-title">Daftar Histori Surat Masuk</h4>
                             </div>
                             <div class="col-md-6 col-12">                        
                                 <button type="hidden" onclick="reload_table()"
@@ -44,7 +44,7 @@
                                     <th>Status</th>
                                     <th>Instansi</th>
                                     <th>Perihal</th>
-                                    <th>Didisposisikan Kpd</th>
+                                    <th>Disposisi Kepada</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>

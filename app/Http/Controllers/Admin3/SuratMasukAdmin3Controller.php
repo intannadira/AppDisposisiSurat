@@ -40,7 +40,7 @@ class SuratMasukAdmin3Controller extends Controller
                     if ($data->status == 'diverifikasi-sekdin') {
                         $status     = '<a href="javascript:void(0)" class="badge badge-danger">Diverifikasi Sekdin</a>
                         <br>
-                        ' . date('d-m-Y', $data->tanggal_konfirmasi_admin2) . '
+                        ' . date('d-m-Y', strtotime($data->tanggal_konfirmasi_admin3)) . '
                         ';
                     }
                     if ($data->status == 'selesai') {
@@ -48,6 +48,20 @@ class SuratMasukAdmin3Controller extends Controller
                     }
                     return $status;
                 })
+                 //h_kategori_surat
+                 ->addColumn('h_kategori_surat', function ($data) {
+                    if ($data->kategori_surat == 'segera') {
+                        $kategori_surat     = '<a href="javascript:void(0)" class="badge badge-warning">Segera</a>';
+                    }
+                    if ($data->kategori_surat == 'sangat-segera') {
+                        $kategori_surat     = '<a href="javascript:void(0)" class="badge badge-danger">Sangat Segera</a>';
+                    }
+                    if ($data->kategori_surat == 'biasa') {
+                        $kategori_surat     = '<a href="javascript:void(0)" class="badge badge-primary">Biasa</a>';
+                    }
+                    return $kategori_surat;
+                })
+                //h_tanggal_terima
                 ->addColumn('h_tanggal_terima', function ($data) {
                     $tanggal_terima = date('d-m-Y', strtotime($data->tanggal_terima));
                     return $tanggal_terima;
@@ -60,7 +74,7 @@ class SuratMasukAdmin3Controller extends Controller
                             </center>';
                     return $actionBtn;
                 })
-                ->rawColumns(['action', 'h_status', 'h_tanggal_terima'])
+                ->rawColumns(['action', 'h_status', 'h_kategori_surat', 'h_tanggal_terima'])
                 ->make(true);
         }
 

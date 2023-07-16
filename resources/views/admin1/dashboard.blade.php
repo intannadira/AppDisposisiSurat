@@ -39,7 +39,7 @@
                             <div class="card">
                                 <div class="seo-fact sbg3">
                                     <div class="p-4 d-flex justify-content-between align-items-center">
-                                        <div class="seofct-icon"><i class="ti-share-alt"></i> Surat Terdeposisi Saya</div>
+                                        <div class="seofct-icon"><i class="ti-share-alt"></i> Surat Terdisposisi Saya</div>
                                         <h2>{{ $total_surat_didisposisi }}</h2>
                                     </div>
                                     <canvas id="seolinechart1" height="50"></canvas>

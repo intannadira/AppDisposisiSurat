@@ -27,7 +27,7 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-6 col-12">
-                                <h4 class="header-title">Data Staff</h4>
+                                <h4 class="header-title">Data Penerima Disposisi</h4>
                             </div>
                             <div class="col-md-6 col-12">
                                 <button type="button" onclick="add()"

@@ -48,6 +48,19 @@ class SuratMasukAdmin1Controller extends Controller
                     }
                     return $status;
                 })
+                //h_kategori_surat
+                ->addColumn('h_kategori_surat', function ($data) {
+                    if ($data->kategori_surat == 'segera') {
+                        $kategori_surat     = '<a href="javascript:void(0)" class="badge badge-warning">Segera</a>';
+                    }
+                    if ($data->kategori_surat == 'sangat-segera') {
+                        $kategori_surat     = '<a href="javascript:void(0)" class="badge badge-danger">Sangat Segera</a>';
+                    }
+                    if ($data->kategori_surat == 'biasa') {
+                        $kategori_surat     = '<a href="javascript:void(0)" class="badge badge-primary">Biasa</a>';
+                    }
+                    return $kategori_surat;
+                })
                 //h_tanggal_terima
                 ->addColumn('h_tanggal_terima', function ($data) {
                     $tanggal_terima = date('d-m-Y', strtotime($data->tanggal_terima));
@@ -62,7 +75,7 @@ class SuratMasukAdmin1Controller extends Controller
                             </center>';
                     return $actionBtn;
                 })
-                ->rawColumns(['action', 'h_status','h_tanggal_terima'])
+                ->rawColumns(['action', 'h_status','h_kategori_surat', 'h_tanggal_terima'])
                 ->make(true);
         }
 
