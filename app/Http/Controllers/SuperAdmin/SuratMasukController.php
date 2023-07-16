@@ -55,6 +55,12 @@ class SuratMasukController extends Controller
                         ' . date('d-m-Y', strtotime($data->tanggal_penyelesaian)) . '
                         ';
                     }
+                    if ($data->status == 'ditolak') {
+                        $status     = '<a href="javascript:void(0)" class="badge badge-danger">Ditolak</a>
+                        <br>
+                        ' . date('d-m-Y', strtotime($data->tanggal_penyelesaian)) . '
+                        ';
+                    }
                     return $status;
                 })
                 //h_kategori_surat
