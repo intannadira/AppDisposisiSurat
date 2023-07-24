@@ -16,7 +16,11 @@ class SuratMasukController extends Controller
     {
         //datatable
         if (request()->ajax()) {
-            $data = SuratMasuk::with('jabatan_bidang')->get();
+            $data = SuratMasuk::with('jabatan_bidang')
+            ->whereIn('status', ['diajukan', 'didisposisi', 'dilaksanakan', 'diverifikasi-kasubag', 'diverifikasi-sekdin'])
+            ->orderByRaw("FIELD(kategori_surat, 'sangat-segera', 'segera', 'biasa')")
+            ->orderBy('tanggal_terima', 'desc')
+            ->get();
 
             return Datatables::of($data)
                 ->addIndexColumn()
@@ -133,7 +137,6 @@ class SuratMasukController extends Controller
             'perihal'        => 'required',
             'tanggal_surat'  => 'required',
             'tanggal_terima' => 'required',
-            'kepada'         => 'required',
             'kategori_surat' => 'required',
         ]);
 
@@ -160,7 +163,7 @@ class SuratMasukController extends Controller
                     'perihal'                     => $request->perihal,
                     'tanggal_surat'               => $request->tanggal_surat,
                     'tanggal_terima'              => $request->tanggal_terima,
-                    'kepada'                      => $request->kepada,
+                    'kepada'                      => 'Kepala Dinas Dispora',
                     'kategori_surat'              => $request->kategori_surat,
                     'status'                      => $request->status,
                     'lampiran'                    => $file_name
@@ -176,7 +179,7 @@ class SuratMasukController extends Controller
                     'perihal'                     => $request->perihal,
                     'tanggal_surat'               => $request->tanggal_surat,
                     'tanggal_terima'              => $request->tanggal_terima,
-                    'kepada'                      => $request->kepada,
+                    'kepada'                      => 'Kepala Dinas Dispora',
                     'kategori_surat'              => $request->kategori_surat,
                     'status'                      => 'diajukan',
                     'lampiran'                    => $file_name,

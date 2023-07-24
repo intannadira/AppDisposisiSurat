@@ -23,7 +23,10 @@
                                 </div>
                                 <div class="col-md-4 col-12 mb-3">
                                     <label>Tanggal Akhir</label>
-                                    <input type="date" class="form-control" value="{{ date('Y-m-t') }}" id="akhir">
+                                    <input type="date" class="form-control" 
+        
+                                    value="{{ date('Y-m-d')}}"
+                                    id="akhir">
                                 </div>
                                 <div class="col-md-1 col-12 text-center mt-3">
                                     <button onclick="add_filter()" class="btn btn-secondary mt-3"><i class="fa fa-search"

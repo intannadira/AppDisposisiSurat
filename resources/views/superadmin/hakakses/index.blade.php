@@ -27,7 +27,7 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-6 col-12">
-                                <h4 class="header-title">Daftar Pengguna</h4>
+                                <h4 class="header-title">Daftar Staff</h4>
                             </div>
                             <div class="col-md-6 col-12">                          
                                 <button type="hidden" onclick="reload_table()"
@@ -39,9 +39,10 @@
                             <thead class="bg-light text-capitalize">
                                 <tr>
                                     <th>No</th>
-                                    <th>Nama Pengguna</th>
+                                    <th>Nama</th>
                                     <th>Jabatan</th>
                                     <th>Level</th>
+                                    <th>No Telp</th>
                                     <th>Tgl Daftar</th>
                                     <th>Action</th>
                                 </tr>
@@ -95,9 +96,10 @@
             },
             columns: [
                 {data: 'DT_RowIndex', name: 'DT_RowIndex' , orderable: false, searchable: false},
-                {data: 'name', name: 'name'},
-                {data: 'jabatan.bagian', name: 'jabatan.bagian'},
+                {data: 'karyawan.nama', name: 'karyawan.nama'},
+                {data: 'jabatan_bidang.nama_jabatan_bidang', name: 'jabatan_bidang.nama_jabatan_bidang'},
                 {data: 'jabatan.nama_role', name: 'jabatan.nama_role'},
+                {data: 'karyawan.no_wa', name: 'karyawan.no_wa'},
                 {data: 'tanggal', name: 'tanggal'},
                 {data: 'action', name: 'action'},
             ],
@@ -189,7 +191,7 @@
                 $('[name="email"]').val(data.email);
                 $('[name="jabatan_id"]').val(data.jabatan_id);
                 $('#modal-form').modal('show'); // show bootstrap modal when complete loaded
-                $('.modal-title').text('Edit Data Pengguna'); // Set title to Bootstrap modal title   
+                $('.modal-title').text('Edit Data Staff'); // Set title to Bootstrap modal title   
             },
             error: function (jqXHR, textStatus , errorThrown) {
                 alert(errorThrown);
