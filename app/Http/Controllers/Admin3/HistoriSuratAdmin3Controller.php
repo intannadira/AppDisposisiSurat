@@ -18,7 +18,7 @@ class HistoriSuratAdmin3Controller extends Controller
         //datatable
         if (request()->ajax()) {
             $data = SuratMasuk::with(['jabatan_bidang', 'karyawan'])
-            ->whereIn('status',['didisposisi','selesai'])
+            ->where('status','selesai')
             ->get();
 
             return Datatables::of($data)
@@ -84,7 +84,7 @@ Tindakan : '. $row->tindakan_kadin .'%0A
 Catatan Kadin : '. $row->catatan_kadin .'%0A
 %0A
 *Silahkan Melakukan Konfirmasi dengan Klik Link ini http://disporarchive.com dan pilih Menu Disposisi Saya di Aplikasi Untuk Melihat Detail Surat*
-                            " target="_blank" class="btn btn-sm btn-success" data-toggle="tooltip" data-placement="top" title="Maps"><i class="ti-announcement"></i>  Kirim WA</a>
+                            " target="_blank" class="btn btn-sm btn-success" data-toggle="tooltip" data-placement="top" title="Kirim WA"><i class="ti-announcement"></i>  Kirim WA</a>
                             <a href="histori-suratadmin3/detail?kode=' . $row->id . '" class="btn btn-outline-primary btn-sm" data-toggle="tooltip" data-placement="top" title="Detail Surat"><i class="ti-search"> Detail</i></a>
                             </center>';
                     }else{

@@ -4,6 +4,8 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.css" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
 <link href='https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.1/css/all.css' rel='stylesheet'>
+<link rel="stylesheet" href="{{ url('srtdash/assets/vendor/sweetalert2/sweetalert2.min.css') }}">
+<link rel="stylesheet" href="{{ url('srtdash/assets/css/bootstrap.min.css') }}">
 @endsection
 @section('content')
 <div class="container">
@@ -24,7 +26,6 @@
                                 <div class="col-md-4 col-12 mb-3">
                                     <label>Tanggal Akhir</label>
                                     <input type="date" class="form-control" 
-        
                                     value="{{ date('Y-m-d')}}"
                                     id="akhir">
                                 </div>
@@ -101,6 +102,7 @@
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/locales-all.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.nicescroll/3.7.6/jquery.nicescroll.min.js"></script>
 
+    <script src="{{ url('srtdash/assets/vendor/sweetalert2/sweetalert2.min.js')}}"></script>
     <script src="{{ url('srtdash/assets/js/vendor/jquery-2.2.4.min.js') }}"></script>
     <script src="{{ url('srtdash/assets/js/popper.min.js') }}"></script>
     <script src="{{ url('srtdash/assets/js/bootstrap.min.js') }}"></script>
@@ -108,7 +110,7 @@
     <script src="{{ url('srtdash/assets/js/metisMenu.min.js') }}"></script>
     <script src="{{ url('srtdash/assets/js/jquery.slimscroll.min.js') }}"></script>
     <script src="{{ url('srtdash/assets/js/jquery.slicknav.min.js') }}"></script>
-    <script src="{{ url('srtdash/assets/js/line-chart.js') }}"></script>
+    {{-- <script src="{{ url('srtdash/assets/js/line-chart.js') }}"></script> --}}
     <script src="{{ url('srtdash/assets/js/pie-chart.js') }}"></script>
     <script src="{{ url('srtdash/assets/js/plugins.js') }}"></script>
     <script src="{{ url('srtdash/assets/js/scripts.js') }}"></script>
@@ -146,7 +148,7 @@
             dataType: "JSON",
             success: function(data) {
 
-               console.log(data.total_surat_masuk);
+            //    console.log(data.total_surat_masuk);
 
                 if(data.total_surat_masuk){
                 $("#total_surat_masuk").text(data.total_surat_masuk);
@@ -189,7 +191,7 @@
                 });
             Toast.fire({
                 icon: 'success',
-                title: 'Berhasil !'
+                title: 'Sukses Filter Data !'
             })
         }
 

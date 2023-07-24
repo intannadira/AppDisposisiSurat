@@ -7,6 +7,7 @@ use App\Models\SuratKeluar;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use Session;
 
 class HomeSuperAdminController extends Controller
 {
