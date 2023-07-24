@@ -27,7 +27,7 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-6 col-12">
-                                <h4 class="header-title">Daftar Histori Surat Masuk</h4>
+                                <h4 class="header-title">Daftar Histori Surat Keluar</h4>
                             </div>
                             <div class="col-md-6 col-12">                        
                                 <button type="hidden" onclick="reload_table()"
@@ -39,12 +39,12 @@
                             <thead class="bg-light text-capitalize">
                                 <tr>
                                     <th>No</th>
-                                    <th>No Agenda</th>
-                                    <th>Tanggal Diterima</th>
-                                    <th>Status</th>
-                                    <th>Instansi</th>
+                                    <th>No Surat</th>
                                     <th>Perihal</th>
-                                    <th>Didisposisikan Kpd</th>
+                                    <th>Status</th>
+                                    <th>Tanggal Surat</th>
+                                    <th>Tujuan Surat</th>
+                                    <th>Deskripsi</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -59,7 +59,7 @@
         </div>
     </div>
 </div>
-@include('admin2.suratmasuk.modal')
+@include('admin2.suratkeluar.modal')
 
 <!-- main content area end -->
 @endsection
@@ -92,17 +92,17 @@
             responsive: true,
             lengthMenu: [[50, 100, 200, -1], [50, 100, 200, "All"]],
             ajax: {
-                  url: '{{ route('superadmin.historisurat.index')}}',
+                  url: '{{ route('superadmin.historisuratkeluar.index')}}',
                   type: "GET",
             },
             columns: [
                 {data: 'DT_RowIndex', name: 'DT_RowIndex' , orderable: false, searchable: false},
-                {data: 'no_urut', name: 'no_urut'},
-                {data: 'h_tanggal_terima', name: 'h_tanggal_terima'},
-                {data: 'h_status', name: 'h_status'},
-                {data: 'dari_instansi', name: 'dari_instansi'},
+                {data: 'no_surat', name: 'no_surat'},
                 {data: 'perihal', name: 'perihal'},
-                {data: 'karyawan.nama', name: 'karyawan.nama'},
+                {data: 'h_status', name: 'h_status'},
+                {data: 'tanggal_surat', name: 'tanggal_surat'},
+                {data: 'tujuan_surat', name: 'tujuan_surat'},
+                {data: 'deskripsi', name: 'deskripsi'},
                 {data: 'action', name: 'action'},
             ],
         });
@@ -121,7 +121,7 @@
       $('#nama').html("");
       $('#jabatan_bidang_id').html("");
       $('#modal-form').modal('show'); // show bootstrap modal
-      $('.modal-title').text('Tambah Data Surat Masuk'); // Set Title to Bootstrap modal title
+      $('.modal-title').text('Tambah Data Surat Keluar'); // Set Title to Bootstrap modal title
     }
 
     function filter_data(){
@@ -135,7 +135,7 @@
         $('#tindakan_kadin').html("");
         $('#catatan_kadin').html("");
         $.ajax({
-            url : "{{ route('admin1.suratmasukadmin1.store')}}",
+            url : "{{ route('admin1.suratkeluaradmin1.store')}}",
             type: "POST",
             data: $('#form').serialize(),
             dataType: "JSON",
@@ -201,7 +201,7 @@
         $('#tindakan').html("");
         //Ajax Load data from ajax
         $.ajax({
-            url : "/admin1/suratmasukadmin1/" + id,
+            url : "/admin1/suratkeluaradmin1/" + id,
             type: "GET",
             dataType: "JSON",
             success: function(data) {
@@ -216,7 +216,7 @@
                 $('[name="kategori_surat"]').val(data.kategori_surat);
                 $('[name="tindakan"]').val(data.tindakan);
                 $('#modal-form').modal('show'); // show bootstrap modal when complete loaded
-                $('.modal-title').text('Edit Data Surat Masuk'); // Set title to Bootstrap modal title   
+                $('.modal-title').text('Edit Data Surat Keluar'); // Set title to Bootstrap modal title   
             },
             error: function (jqXHR, textStatus , errorThrown) {
                 alert(errorThrown);
@@ -242,7 +242,7 @@
       }).then((result) => {
         if (result.value) {
           $.ajax({
-            url : "/admin1/suratmasukadmin1/" + id,
+            url : "/admin1/suratkeluaradmin1/" + id,
             type: "DELETE",
             dataType: "JSON",
             success: function(data){

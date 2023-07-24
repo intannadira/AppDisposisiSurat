@@ -17,7 +17,8 @@
                             </li>   
                             <li><a href="{{ route('superadmin.suratmasuk.index')}}"><i class="ti-share"></i> <span>Surat Masuk</span></a></li>
                             <li><a href="{{ route('superadmin.suratkeluar.index')}}"><i class="ti-share-alt"></i> <span>Surat Keluar</span></a></li>
-                            <li><a href="{{ route('superadmin.historisurat.index')}}"><i class="ti-archive"></i> <span>Histori Surat</span></a></li>
+                            <li><a href="{{ route('superadmin.historisurat.index')}}"><i class="ti-archive"></i> <span>Histori Surat Masuk</span></a></li>
+                            <li><a href="{{ route('superadmin.historisuratkeluar.index')}}"><i class="ti-archive"></i> <span>Histori Surat Keluar</span></a></li>
                         </li>      
             
                         @endif

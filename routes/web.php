@@ -65,6 +65,7 @@ use App\Http\Controllers\Admin1\DisposisiSayaAdmin1Controller;
 use App\Http\Controllers\Admin2\DisposisiSayaAdmin2Controller;
 use App\Http\Controllers\User10\DisposisiSayaUser10Controller;
 use App\Http\Controllers\User11\DisposisiSayaUser11Controller;
+use App\Http\Controllers\SuperAdmin\HistoriSuratKeluarController;
 
 
 
@@ -151,6 +152,10 @@ Route::group([
             //Histori Surat
             Route::resource('historisurat', HistoriSuratController::class);
             Route::get('histori-surat/detail', [HistoriSuratController::class, 'detail_surat'])->name('historisurat.detail');
+            //Histori Surat Keluar
+            //Histori Surat
+            Route::resource('historisuratkeluar', HistoriSuratKeluarController::class);
+            Route::get('histori-suratkeluar/detail', [HistoriSuratKeluarController::class, 'detail_surat'])->name('historisuratkeluar.detail');
            
 
         });
