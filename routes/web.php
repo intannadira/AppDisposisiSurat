@@ -66,6 +66,9 @@ use App\Http\Controllers\Admin2\DisposisiSayaAdmin2Controller;
 use App\Http\Controllers\User10\DisposisiSayaUser10Controller;
 use App\Http\Controllers\User11\DisposisiSayaUser11Controller;
 use App\Http\Controllers\SuperAdmin\HistoriSuratKeluarController;
+use App\Http\Controllers\Admin1\HistoriSuratKeluarAdmin1Controller;
+use App\Http\Controllers\Admin2\HistoriSuratKeluarAdmin2Controller;
+use App\Http\Controllers\Admin3\HistoriSuratKeluarAdmin3Controller;
 
 
 
@@ -152,7 +155,6 @@ Route::group([
             //Histori Surat
             Route::resource('historisurat', HistoriSuratController::class);
             Route::get('histori-surat/detail', [HistoriSuratController::class, 'detail_surat'])->name('historisurat.detail');
-            //Histori Surat Keluar
             //Histori Surat
             Route::resource('historisuratkeluar', HistoriSuratKeluarController::class);
             Route::get('histori-suratkeluar/detail', [HistoriSuratKeluarController::class, 'detail_surat'])->name('historisuratkeluar.detail');
@@ -192,6 +194,9 @@ Route::group([
             //suratkeluar
             Route::resource('suratkeluaradmin1', SuratKeluarAdmin1Controller::class);
             Route::get('surat-keluaradmin1/detail', [SuratKeluarAdmin1Controller::class, 'detail_surat'])->name('suratkeluar.detail');
+            //HistoriSuratKeluarAdmin1
+            Route::resource('historisuratkeluaradmin1', HistoriSuratKeluarAdmin1Controller::class);
+            Route::get('histori-suratkeluaradmin1/detail', [HistoriSuratKeluarAdmin1Controller::class, 'detail_surat'])->name('historisuratkeluaradmin1.detail');
 
         });
 
@@ -216,6 +221,9 @@ Route::group([
             //suratkeluar
             Route::resource('suratkeluaradmin2', SuratKeluarAdmin2Controller::class);
             Route::get('surat-keluaradmin2/detail', [SuratKeluarAdmin2Controller::class, 'detail_surat'])->name('suratkeluar.detail');
+            //HistoriSuratKeluarAdmin2
+            Route::resource('historisuratkeluaradmin2', HistoriSuratKeluarAdmin2Controller::class);
+            Route::get('histori-suratkeluaradmin2/detail', [HistoriSuratKeluarAdmin2Controller::class, 'detail_surat'])->name('historisuratkeluaradmin2.detail');
         });
 
     });
@@ -236,6 +244,9 @@ Route::group([
              //suratkeluar
              Route::resource('suratkeluaradmin3', SuratKeluarAdmin3Controller::class);
              Route::get('surat-keluaradmin3/detail', [SuratKeluarAdmin3Controller::class, 'detail_surat'])->name('suratkeluar.detail');
+            //HistoriSuratKeluarAdmin3
+            Route::resource('historisuratkeluaradmin3', HistoriSuratKeluarAdmin3Controller::class);
+            Route::get('histori-suratkeluaradmin3/detail', [HistoriSuratKeluarAdmin3Controller::class, 'detail_surat'])->name('historisuratkeluaradmin3.detail');
         });
 
     });
