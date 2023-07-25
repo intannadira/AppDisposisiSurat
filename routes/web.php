@@ -131,6 +131,8 @@ Route::group([
         }
     });
 
+    Route::post('/surat-masuk/ubah', [SuratMasukController::class, 'updateStatus'])->name('/surat-masuk/ubah');
+
     //role superadmin
     Route::group([
         'middleware' => 'role.superadmin'
@@ -147,6 +149,8 @@ Route::group([
             Route::resource('karyawan', KaryawanController::class);
             //suratmasuk
             Route::resource('suratmasuk', SuratMasukController::class);
+            //update_status 
+
             //suratkeluar
             Route::resource('suratkeluar', SuratKeluarController::class);
             Route::get('surat-keluar/detail', [SuratKeluarController::class, 'detail_surat'])->name('suratkeluar.detail');

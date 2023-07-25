@@ -63,6 +63,7 @@
     </div>
 </div>
 @include('superadmin.suratmasuk.modal')
+@include('superadmin.suratmasuk.ditolak')
 
 <!-- main content area end -->
 @endsection
@@ -241,6 +242,48 @@
                 $('.modal-title').text('Edit Data Surat Masuk'); // Set title to Bootstrap modal title   
             },
             error: function (jqXHR, textStatus , errorThrown) {
+                alert(errorThrown);
+            }
+        });
+    }
+
+    function edit_ditolak(id){
+        $('#form-ditolak')[0].reset(); // reset form on modals 
+        $('[name="id"]').val('');
+        $('#status').html("");
+        //Ajax Load data from ajax
+        $.ajax({
+            url : "/superadmin/suratmasuk/" + id,
+            type: "GET",
+            dataType: "JSON",
+            success: function(data) {
+                $('[name="id"]').val(data.id);
+                $('[name="status"]').val(data.status);
+                $('#modal-form-ditolak').modal('show'); // show bootstrap modal when complete loaded
+                $('.modal-title').text('Ubah Status Surat'); // Set title to Bootstrap modal title   
+            },
+            error: function (jqXHR, textStatus , errorThrown) {
+                alert(errorThrown);
+            }
+        });
+    }
+
+    function save_ditolak(){
+        $.ajax({
+            url : "{{ route('/surat-masuk/ubah') }}",
+            type: "POST",
+            data: $('#form-ditolak').serialize(),
+            dataType: "JSON",
+            success: function(data){
+                if(data.status) {
+                    $('#modal-form-ditolak').modal('hide');
+                    reload_table();
+                    sukses();
+                }else{
+                  
+                }
+            },
+            error: function (jqXHR, textStatus , errorThrown){ 
                 alert(errorThrown);
             }
         });
