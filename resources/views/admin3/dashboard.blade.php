@@ -20,6 +20,9 @@
                                         <div class="seofct-icon"><i class="ti-bar-chart-alt"></i>Total Surat Belum Terkonfirmasi</div>
                                         <h2>{{ $total_surat_belum_terkonfirmasi }}</h2>
                                     </div>
+                                    <a href="{{ url('admin3/suratmasukadmin3') }}" class="btn btn-primary"
+                                    style="background-color: #edf1f1; border-color: #edf1f1; color: black; border-radius: 5px; margin-left: 10px; margin-bottom: 10px; margin-top: 10px; width: 120px;"
+                                    >Lihat Detail   <i class="ti-arrow-circle-right"></i></a>
                                     <canvas id="seolinechart1" height="50"></canvas>
                                 </div>
                             </div>
@@ -28,9 +31,12 @@
                             <div class="card">
                                 <div class="seo-fact sbg2">
                                     <div class="p-4 d-flex justify-content-between align-items-center">
-                                        <div class="seofct-icon"><i class="ti-briefcase"></i> Total Surat Terkonfirmasi</div>
+                                        <div class="seofct-icon"><i class="ti-briefcase"></i> Total Surat Selesai</div>
                                         <h2>{{ $total_surat_diproses }}</h2>
                                     </div>
+                                    <a href="{{ url('admin3/historisuratadmin3') }}" class="btn btn-primary"
+                                    style="background-color: #edf1f1; border-color: #edf1f1; color: black; border-radius: 5px; margin-left: 10px; margin-bottom: 10px; margin-top: 10px; width: 120px;"
+                                    >Lihat Detail   <i class="ti-arrow-circle-right"></i></a>
                                     <canvas id="seolinechart2" height="50"></canvas>
                                 </div>
                             </div>

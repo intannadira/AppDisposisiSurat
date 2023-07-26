@@ -44,7 +44,7 @@
                                                 <td><strong>{{ $surat->no_surat }}</strong></td>
                                             </tr>
                                             <tr>
-                                                <td>Tanggal Surat</td>
+                                                <td>Tanggal Pelaksanaan Kegiatan</td>
                                                 <td>:</td>
                                                 <td><strong>{{ date('d-m-Y', strtotime($surat->tanggal_surat)) }}</strong></td>
                                             </tr>

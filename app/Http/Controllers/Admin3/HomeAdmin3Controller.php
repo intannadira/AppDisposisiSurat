@@ -23,7 +23,7 @@ class HomeAdmin3Controller extends Controller
     //total_surat_belum_terkonfirmasi
     function total_surat_belum_terkonfirmasi(){
         $surat_belum_terkonfirmasi = DB::table('surat_masuk')
-        ->where('status', 'diverifikasi-kasubag')
+        ->where('status',['diverifikasi-sekdin'])
         ->count();
         
         if($surat_belum_terkonfirmasi){
@@ -36,7 +36,7 @@ class HomeAdmin3Controller extends Controller
 
     function total_surat_diproses(){
         $surat_diproses = DB::table('surat_masuk')
-        ->whereIn('status', ['diajukan', 'didisposisi', 'dilaksanakan', 'diverifikasi-kasubag', 'diverifikasi-sekdin'])
+        ->where('status', 'selesai')
         ->count();
         
         if($surat_diproses){

@@ -15,10 +15,10 @@ class HakAksesController extends Controller
 {
     public function index()
     {
-    
+
         //datatable
         if (request()->ajax()) {
-            $data = User::with('jabatan')->get();
+            $data = User::with(['jabatan','karyawan','jabatan_bidang'])->get();
 
             return Datatables::of($data)
                 ->addIndexColumn()
@@ -42,7 +42,7 @@ class HakAksesController extends Controller
         $jabatan = Role::select('id', 'bagian')->get();
 
         return view('superadmin.hakakses.index', [
-            'title'     => 'Pengguna',
+            'title'     => 'Staff',
             'jabatan'   => $jabatan
         ]);
     }

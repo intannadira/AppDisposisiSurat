@@ -76,7 +76,6 @@
                             </div>
                             <div class="col-md-5 col-12 mb-3">
                             </div>
-
                             <div class="col-md-4">
                                 <table class="table table-sm table-borderless">
                                     <tr>
@@ -89,14 +88,7 @@
                                                 <a href="{{ url('lampiran/'.$surat->lampiran) }}" target="_blank">
                                                     <img src="{{ url('lampiran/'.$surat->lampiran) }}" alt="" width="100px">
                                                 </a>
-
-                                                
                                             @endif
-                                            {{-- <a href="{{ url('lampiran/'.$surat->lampiran) }}"
-                                                target="_blank">
-                                                <img src="{{ url('lampiran/'.$surat->lampiran) }}"
-                                                    alt="" width="100px">
-                                            </a> --}}
                                         </td>
                                     </tr>
                                 </table>
@@ -106,7 +98,7 @@
                         </div>
                         <div class="invoice-buttons text-right d-print-none">
                             <a href="#" onclick="window.print();" class="invoice-btn"><i class="ti-printer"></i> Print</a>
-                            <a href="{{ route('superadmin.suratkeluar.index')}}" class="invoice-btn"><i class="ti-back-left"></i> Kembali</a>
+                            <a href="{{ route('admin2.historisuratkeluaradmin2.index')}}" class="invoice-btn"><i class="ti-back-left"></i> Kembali</a>
                         </div>
                     </div>
                 </div>

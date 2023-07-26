@@ -38,7 +38,12 @@ class User extends Authenticatable
 
     public function karyawan()
     {
-        return $this->hasOne('App\Models\Karyawan');
+        return $this->belongsTo('App\Models\Karyawan', 'jabatan_id');
+    }
+
+    public function jabatan_bidang()
+    {
+        return $this->belongsTo('App\Models\JabatanBidang', 'jabatan_id');
     }
 
     /**

@@ -16,9 +16,7 @@ class SuratKeluarAdmin3Controller extends Controller
     {
         //datatable
         if (request()->ajax()) {
-            $data = SuratKeluar::where('status', '!=','diajukan')
-            ->where('status', '!=', 'diverifikasi-kasubag')
-            ->get();
+            $data = SuratKeluar::where('status','diverifikasi-sekdin')->get();
 
             return Datatables::of($data)
                 ->addIndexColumn()

@@ -26,7 +26,7 @@
                             </span>
                         </div>
                         <div class="col-md-6 col-12 mb-3">
-                            <label>Tanggal Surat</label>
+                            <label>Tanggal Pelaksanaan Kegiatan</label>
                             <input type="date" class="form-control" name="tanggal_surat" placeholder="Masukan Tanggal Surat">
                             <span class="text-danger">
                                 <strong id="tanggal_surat"></strong>
@@ -47,8 +47,9 @@
                             </span>
                         </div>
                         <div class="col-md-6 col-12 mb-3">
-                            <label>Kepada Yth</label>
-                            <input class="form-control" name="kepada" placeholder="Masukan Kepada Yth">
+                            <label>Kepada</label>
+                            <input class="form-control" name="kepada" placeholder="Masukan Kepada" 
+                            value="Kepala Dinas Dispora" disabled>
                             <span class="text-danger">
                                 <strong id="kepada"></strong>
                             </span>
@@ -72,7 +73,7 @@
                                 <strong id="kategori_surat"></strong>
                             </span>
                         </div>
-                        <div class="col-md-6 col-12 mb-3">
+                        {{-- <div class="col-md-6 col-12 mb-3">
                             <label>Status</label>
                             <select class="form-control" name="status">
                                 <option value="">-- Pilih Status --</option>
@@ -87,7 +88,7 @@
                             <span class="text-danger">
                                 <strong id="status"></strong>
                             </span>
-                        </div>
+                        </div> --}}
                         <div class="col-md-6 col-12 mb-3">
                             <label>File Lampiran</label>
                             <input type="file" class="form-control" name="lampiran" placeholder="Masukkan Lampiran">

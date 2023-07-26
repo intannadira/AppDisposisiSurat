@@ -16,26 +16,30 @@ class SuratMasukController extends Controller
     {
         //datatable
         if (request()->ajax()) {
-            $data = SuratMasuk::with('jabatan_bidang')->get();
+            $data = SuratMasuk::with('jabatan_bidang')
+            ->whereIn('status', ['diajukan', 'didisposisi', 'dilaksanakan', 'diverifikasi-kasubag', 'diverifikasi-sekdin','ditolak'])
+            ->orderByRaw("FIELD(kategori_surat, 'sangat-segera', 'segera', 'biasa')")
+            ->orderBy('tanggal_terima', 'desc')
+            ->get();
 
             return Datatables::of($data)
                 ->addIndexColumn()
                 //status
                 ->addColumn('h_status', function ($data) {
                     if ($data->status == 'diverifikasi-sekdin') {
-                        $status     = '<a href="javascript:void(0)" class="badge badge-danger">Diverifikasi Sekdin</a>
+                        $status     = '<a href="javascript:void(0)" class="badge badge-warning">Diverifikasi Sekdin</a>
                         <br>
                         ' . date('d-m-Y', strtotime($data->tanggal_konfirmasi_admin2)) . '
                         ';
                     }
                     if ($data->status == 'diajukan') {
-                        $status     = '<a href="javascript:void(0)" class="badge badge-danger">Menunggu</a>
+                        $status     = '<a href="javascript:void(0)" class="badge badge-primary">Menunggu</a>
                         <br>
                         ' . date('d-m-Y', strtotime($data->created_at)) . '
                         ';
                     }
                     if ($data->status == 'didisposisi') {
-                        $status     = '<a href="javascript:void(0)" class="badge badge-warning">Disposisi</a>
+                        $status     = '<a href="javascript:void(0)" class="badge badge-success">Disposisi</a>
                         <br>
                         ' . date('d-m-Y', strtotime($data->tanggal_konfirmasi_admin3)) . '
                         ';
@@ -44,7 +48,7 @@ class SuratMasukController extends Controller
                         $status     = '<a href="javascript:void(0)" class="badge badge-primary">Dilaksanakan</a>';
                     }
                     if ($data->status == 'diverifikasi-kasubag') {
-                        $status     = '<a href="javascript:void(0)" class="badge badge-warning">Diverfikasi Kasub</a>
+                        $status     = '<a href="javascript:void(0)" class="badge badge-secondary">Diverfikasi Kasub</a>
                         <br>
                         ' . date('d-m-Y', strtotime($data->tanggal_konfirmasi_admin1)) . '
                         ';
@@ -82,12 +86,23 @@ class SuratMasukController extends Controller
                     return $tanggal_terima;
                 })
                 ->addColumn('action', function ($row) {
-                    $actionBtn = '
-                            <center>
-                            <a href="surat-masuk/detail?kode=' . $row->id . '" class="btn btn-outline-primary btn-sm" data-toggle="tooltip" data-placement="top" title="Detail Surat"><i class="ti-search"></i></a>
-                            <a href="javascript:void(0)" class="btn btn-sm btn-outline-warning" data-toggle="tooltip" data-placement="top" title="Edit" onclick="edit(' . $row->id . ')"><i class="ti-pencil-alt"></i></a>
-                            <a href="javascript:void(0)" class="btn btn-sm btn-outline-danger" data-toggle="tooltip" data-placement="top" title="Hapus" onclick="delete_data(' . $row->id . ')"><i class="ti-trash"></i></a>
-                            </center>';
+                    if($row->status == 'ditolak'){
+                        $actionBtn = '
+                        <center>
+                        <a href="surat-masuk/detail?kode=' . $row->id . '" class="btn btn-outline-primary btn-sm" data-toggle="tooltip" data-placement="top" title="Detail Surat"><i class="ti-search"></i></a>
+                        <a href="javascript:void(0)" class="btn btn-sm btn-outline-warning" data-toggle="tooltip" data-placement="top" title="Edit" onclick="edit(' . $row->id . ')"><i class="ti-pencil-alt"></i></a>
+                        <a href="javascript:void(0)" class="btn btn-sm btn-outline-danger" data-toggle="tooltip" data-placement="top" title="Hapus" onclick="delete_data(' . $row->id . ')"><i class="ti-trash"></i></a>
+                        <br>
+                        <a href="javascript:void(0)" class="btn btn-sm btn-outline-success" data-toggle="tooltip" data-placement="top" title="Ajukan Kembali" onclick="edit_ditolak(' . $row->id . ')"> Ajukan Kembali <i class="ti-arrow-circle-right"></i></a>
+                        </center>';
+                    }else{
+                        $actionBtn = '
+                        <center>
+                        <a href="surat-masuk/detail?kode=' . $row->id . '" class="btn btn-outline-primary btn-sm" data-toggle="tooltip" data-placement="top" title="Detail Surat"><i class="ti-search"></i></a>
+                        <a href="javascript:void(0)" class="btn btn-sm btn-outline-warning" data-toggle="tooltip" data-placement="top" title="Edit" onclick="edit(' . $row->id . ')"><i class="ti-pencil-alt"></i></a>
+                        <a href="javascript:void(0)" class="btn btn-sm btn-outline-danger" data-toggle="tooltip" data-placement="top" title="Hapus" onclick="delete_data(' . $row->id . ')"><i class="ti-trash"></i></a>
+                        </center>';
+                    }
                     return $actionBtn;
                 })
                 ->rawColumns(['action', 'h_status','h_kategori_surat','h_tanggal_terima'])
@@ -133,7 +148,6 @@ class SuratMasukController extends Controller
             'perihal'        => 'required',
             'tanggal_surat'  => 'required',
             'tanggal_terima' => 'required',
-            'kepada'         => 'required',
             'kategori_surat' => 'required',
         ]);
 
@@ -160,9 +174,8 @@ class SuratMasukController extends Controller
                     'perihal'                     => $request->perihal,
                     'tanggal_surat'               => $request->tanggal_surat,
                     'tanggal_terima'              => $request->tanggal_terima,
-                    'kepada'                      => $request->kepada,
+                    'kepada'                      => 'Kepala Dinas Dispora',
                     'kategori_surat'              => $request->kategori_surat,
-                    'status'                      => $request->status,
                     'lampiran'                    => $file_name
                 ]
             );
@@ -176,7 +189,7 @@ class SuratMasukController extends Controller
                     'perihal'                     => $request->perihal,
                     'tanggal_surat'               => $request->tanggal_surat,
                     'tanggal_terima'              => $request->tanggal_terima,
-                    'kepada'                      => $request->kepada,
+                    'kepada'                      => 'Kepala Dinas Dispora',
                     'kategori_surat'              => $request->kategori_surat,
                     'status'                      => 'diajukan',
                     'lampiran'                    => $file_name,
@@ -197,6 +210,36 @@ class SuratMasukController extends Controller
     {
         $data = SuratMasuk::find($id);
         return response()->json($data);
+    }
+
+    public function updateStatus(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'status'      => 'required',
+        ]);
+
+        if ($validator->fails())
+        {
+            return response()->json(['errors'=>$validator->errors()]);
+        }
+
+        if ($request->id) {
+
+            SuratMasuk::find($request->id)->update(
+                [
+                    'status'                      => $request->status,
+                ]
+            );
+        } else {
+
+            SuratMasuk::Create(
+                [
+                    'status'                      => 'diajukan',
+                ]
+            );
+        }
+                return response()->json(['status' => true]);
+    
     }
 
     /**

@@ -27,12 +27,9 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-6 col-12">
-                                <h4 class="header-title">Daftar Surat Masuk</h4>
+                                <h4 class="header-title">Daftar Histori Surat Keluar</h4>
                             </div>
-                            <div class="col-md-6 col-12">
-                                <button type="button" onclick="add()"
-                                    class="btn btn-rounded btn-outline-info float-right mb-3"><i class="ti-plus"> </i>
-                                    Tambah</button>                            
+                            <div class="col-md-6 col-12">                        
                                 <button type="hidden" onclick="reload_table()"
                                 class="btn btn-rounded btn-outline-secondary float-right mb-3 mr-1"><i
                                     class="ti-reload"> </i> Reload</button>
@@ -42,12 +39,12 @@
                             <thead class="bg-light text-capitalize">
                                 <tr>
                                     <th>No</th>
-                                    <th>No Agenda</th>
-                                    <th>Tanggal Diterima</th>
-                                    <th>Status</th>
-                                    <th>Instansi</th>
-                                    <th>Kategori</th>
+                                    <th>No Surat</th>
                                     <th>Perihal</th>
+                                    <th>Status</th>
+                                    <th>Tanggal Surat</th>
+                                    <th>Tujuan Surat</th>
+                                    <th>Deskripsi</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -62,8 +59,7 @@
         </div>
     </div>
 </div>
-@include('superadmin.suratmasuk.modal')
-@include('superadmin.suratmasuk.ditolak')
+@include('admin3.suratkeluar.modal')
 
 <!-- main content area end -->
 @endsection
@@ -96,17 +92,17 @@
             responsive: true,
             lengthMenu: [[50, 100, 200, -1], [50, 100, 200, "All"]],
             ajax: {
-                  url: '{{ route('superadmin.suratmasuk.index')}}',
+                  url: '{{ route('admin3.historisuratkeluaradmin3.index')}}',
                   type: "GET",
             },
             columns: [
                 {data: 'DT_RowIndex', name: 'DT_RowIndex' , orderable: false, searchable: false},
-                {data: 'no_urut', name: 'no_urut'},
-                {data: 'h_tanggal_terima', name: 'h_tanggal_terima'},
-                {data: 'h_status', name: 'h_status'},
-                {data: 'dari_instansi', name: 'dari_instansi'},
-                {data: 'h_kategori_surat', name: 'h_kategori_surat'},
+                {data: 'no_surat', name: 'no_surat'},
                 {data: 'perihal', name: 'perihal'},
+                {data: 'h_status', name: 'h_status'},
+                {data: 'tanggal_surat', name: 'tanggal_surat'},
+                {data: 'tujuan_surat', name: 'tujuan_surat'},
+                {data: 'deskripsi', name: 'deskripsi'},
                 {data: 'action', name: 'action'},
             ],
         });
@@ -125,7 +121,7 @@
       $('#nama').html("");
       $('#jabatan_bidang_id').html("");
       $('#modal-form').modal('show'); // show bootstrap modal
-      $('.modal-title').text('Tambah Data Surat Masuk'); // Set Title to Bootstrap modal title
+      $('.modal-title').text('Tambah Data Surat Keluar'); // Set Title to Bootstrap modal title
     }
 
     function filter_data(){
@@ -133,25 +129,15 @@
     }
 
     function save(){
-        var formData = new FormData($('#form')[0]);
-        $('#nama').html("");
-        $('#no_urut').html("");
-        $('#dari_instansi').html("");
-        $('#no_surat').html("");
-        $('#perihal').html("");
-        $('#tanggal_terima').html("");
-        $('#tanggal_surat').html("");
-        $('#kepada').html("");
-        $('#lampiran').html("");
-        $('#status').html("");
-        $('#kategori_surat').html("");
-        $('#status').html("");
+        $('#jabatan_bidang_id').html("");
+        $('#karyawan_id').html("");
+        $('#isi_disposisi').html("");
+        $('#tindakan_kadin').html("");
+        $('#catatan_kadin').html("");
         $.ajax({
-            url : "{{ route('superadmin.suratmasuk.store')}}",
+            url : "{{ route('admin3.suratkeluaradmin3.store')}}",
             type: "POST",
-            data: formData,
-            processData: false,
-            contentType: false,
+            data: $('#form').serialize(),
             dataType: "JSON",
             success: function(data){
                 if(data.status) {
@@ -159,32 +145,23 @@
                     reload_table();
                     sukses();
                 }else{
-                    if(data.errors.no_urut){
-                        $('#no_urut').text(data.errors.no_urut[0]);
+                    if(data.errors.tindakan){
+                        $('#tindakan').text(data.errors.tindakan[0]);
                     }
-                    if(data.errors.dari_instansi){
-                        $('#dari_instansi').text(data.errors.dari_instansi[0]);
+                    if(data.errors.jabatan_bidang_id){
+                        $('#jabatan_bidang_id').text(data.errors.jabatan_bidang_id[0]);
                     }
-                    if(data.errors.no_surat){
-                        $('#no_surat').text(data.errors.no_surat[0]);
+                    if(data.errors.karyawan_id){
+                        $('#karyawan_id').text(data.errors.karyawan_id[0]);
                     }
-                    if(data.errors.perihal){
-                        $('#perihal').text(data.errors.perihal[0]);
+                    if(data.errors.isi_disposisi){
+                        $('#isi_disposisi').text(data.errors.isi_disposisi[0]);
                     }
-                    if(data.errors.tanggal_terima){
-                        $('#tanggal_terima').text(data.errors.tanggal_terima[0]);
+                    if(data.errors.tindakan_kadin){
+                        $('#tindakan_kadin').text(data.errors.tindakan_kadin[0]);
                     }
-                    if(data.errors.tanggal_surat){
-                        $('#tanggal_surat').text(data.errors.tanggal_surat[0]);
-                    }
-                    if(data.errors.kepada){
-                        $('#kepada').text(data.errors.kepada[0]);
-                    }
-                    if(data.errors.lampiran){
-                        $('#lampiran').text(data.errors.lampiran[0]);
-                    }
-                    if(data.errors.kategori_surat){
-                        $('#kategori_surat').text(data.errors.kategori_surat[0]);
+                    if(data.errors.catatan_kadin){
+                        $('#catatan_kadin').text(data.errors.catatan_kadin[0]);
                     }
                 }
             },
@@ -220,11 +197,11 @@
         $('#tanggal_terima').html("");
         $('#tanggal_surat').html("");
         $('#kepada').html("");
-        $('#status').html("");
         $('#kategori_surat').html("");
+        $('#tindakan').html("");
         //Ajax Load data from ajax
         $.ajax({
-            url : "/superadmin/suratmasuk/" + id,
+            url : "/admin3/suratkeluaradmin3/" + id,
             type: "GET",
             dataType: "JSON",
             success: function(data) {
@@ -236,10 +213,10 @@
                 $('[name="tanggal_terima"]').val(data.tanggal_terima);
                 $('[name="tanggal_surat"]').val(data.tanggal_surat);
                 $('[name="kepada"]').val(data.kepada);
-                $('[name="status"]').val(data.status);
                 $('[name="kategori_surat"]').val(data.kategori_surat);
+                $('[name="tindakan"]').val(data.tindakan);
                 $('#modal-form').modal('show'); // show bootstrap modal when complete loaded
-                $('.modal-title').text('Edit Data Surat Masuk'); // Set title to Bootstrap modal title   
+                $('.modal-title').text('Edit Data Surat Keluar'); // Set title to Bootstrap modal title   
             },
             error: function (jqXHR, textStatus , errorThrown) {
                 alert(errorThrown);
@@ -247,90 +224,7 @@
         });
     }
 
-    function edit_ditolak(id){
-        $('#form-ditolak')[0].reset(); // reset form on modals 
-        $('[name="id"]').val('');
-        $('#status').html("");
-        //Ajax Load data from ajax
-        $.ajax({
-            url : "/superadmin/suratmasuk/" + id,
-            type: "GET",
-            dataType: "JSON",
-            success: function(data) {
-                $('[name="id"]').val(data.id);
-                $('[name="status"]').val(data.status);
-                $('#modal-form-ditolak').modal('show'); // show bootstrap modal when complete loaded
-                $('.modal-title').text('Ubah Status Surat'); // Set title to Bootstrap modal title   
-            },
-            error: function (jqXHR, textStatus , errorThrown) {
-                alert(errorThrown);
-            }
-        });
-    }
-
-    function save_ditolak(){
-        $.ajax({
-            url : "{{ route('/surat-masuk/ubah') }}",
-            type: "POST",
-            data: $('#form-ditolak').serialize(),
-            dataType: "JSON",
-            success: function(data){
-                if(data.status) {
-                    $('#modal-form-ditolak').modal('hide');
-                    reload_table();
-                    sukses();
-                }else{
-                  
-                }
-            },
-            error: function (jqXHR, textStatus , errorThrown){ 
-                alert(errorThrown);
-            }
-        });
-    }
-
-   function delete_data(id){
-      const swalWithBootstrapButtons = Swal.mixin({
-        customClass: {
-          confirmButton: 'btn btn-success',
-          cancelButton: 'btn btn-danger'
-        },
-      })
-      swalWithBootstrapButtons.fire({
-        title: 'Konfirmasi !',
-        text: "Anda Akan Menghapus Data ?",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonText: 'Hapus !',
-        cancelButtonText: 'Batal',
-        reverseButtons: true
-      }).then((result) => {
-        if (result.value) {
-          $.ajax({
-            url : "/superadmin/suratmasuk/" + id,
-            type: "DELETE",
-            dataType: "JSON",
-            success: function(data){
-                if(data.status){
-                reload_table();
-                sukseshapus();
-                }else{
-                    alert('Data tidak boleh dihapus');
-                }
-            },
-            error: function (jqXHR, textStatus , errorThrown){ 
-                console.log(errorThrown);
-            }
-        })
-        } else if (result.dismiss === Swal.DismissReason.cancel) {
-          swalWithBootstrapButtons.fire(
-            'Batal',
-            'Data tidak dihapus',
-            'error'
-          )
-        }
-      })
-    }
+   
 
 </script>
 @endsection

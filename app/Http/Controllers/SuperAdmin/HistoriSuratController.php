@@ -18,7 +18,7 @@ class HistoriSuratController extends Controller
         //datatable
         if (request()->ajax()) {
             $data = SuratMasuk::with(['jabatan_bidang', 'karyawan'])
-            ->whereIN('status', ['didisposisi', 'dilaksanakan', 'selesai'])
+            ->where('status', 'selesai')
             ->get();
 
             return Datatables::of($data)
@@ -79,7 +79,7 @@ class HistoriSuratController extends Controller
         $karyawan = Karyawan::select('id', 'nama')->get();
 
         return view('superadmin.historisurat.index', [
-            'title'     => 'Histori Surat',
+            'title'     => 'Histori Surat Masuk',
             'jabatan'   => $jabatan,
             'karyawan'  => $karyawan
         ]);
