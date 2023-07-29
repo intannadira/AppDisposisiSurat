@@ -56,6 +56,7 @@ class JabatanBidangController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'nama_jabatan_bidang'       => 'required',
+            'divisi'                    => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -67,6 +68,8 @@ class JabatanBidangController extends Controller
             JabatanBidang::find($request->id)->update(
                 [
                     'nama_jabatan_bidang'      => $request->nama_jabatan_bidang,
+                    'divisi'                   => $request->divisi,
+
                 ]
             );
         } else {
@@ -74,6 +77,7 @@ class JabatanBidangController extends Controller
             JabatanBidang::Create(
                 [
                     'nama_jabatan_bidang'      => $request->nama_jabatan_bidang,
+                    'divisi'                   => $request->divisi,
                 ]
             );
         }

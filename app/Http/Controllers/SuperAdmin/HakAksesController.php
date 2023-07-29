@@ -30,6 +30,12 @@ class HakAksesController extends Controller
                 ->addColumn('action', function ($row) {
                     $actionBtn = '
                             <center>
+                            <a href="https://api.whatsapp.com/send/?phone='. $row->karyawan->no_wa .'&text=*Berikut Akun Hak Akses Anda* :
+Username : '. $row->name.'%0A
+Password : admindev%0A
+%0A
+*Silahkan Melakukan Akses Sistem dengan Klik Link berikut ini http://disporarchive.com*
+                            " target="_blank" class="btn btn-sm btn-success" data-toggle="tooltip" data-placement="top" title="Kirim WA"><i class="ti-announcement"></i>  Kirim WA</a>
                             <a href="javascript:void(0)" class="btn btn-sm btn-outline-warning" data-toggle="tooltip" data-placement="top" title="Edit" onclick="edit(' . $row->id . ')"><i class="ti-pencil-alt"></i></a>
                             <a href="javascript:void(0)" class="btn btn-sm btn-outline-danger" data-toggle="tooltip" data-placement="top" title="Hapus" onclick="delete_data(' . $row->id . ')"><i class="ti-trash"></i></a>
                             </center>';

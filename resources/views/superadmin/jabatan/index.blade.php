@@ -42,7 +42,8 @@
                             <thead class="bg-light text-capitalize">
                                 <tr>
                                     <th>No</th>
-                                    <th>Nama</th>
+                                    <th>Divisi</th>
+                                    <th>Jabatan</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -95,6 +96,7 @@
             },
             columns: [
                 {data: 'DT_RowIndex', name: 'DT_RowIndex' , orderable: false, searchable: false},
+                {data: 'divisi', name: 'divisi'},
                 {data: 'nama_jabatan_bidang', name: 'nama_jabatan_bidang'},
                 {data: 'action', name: 'action'},
             ],
@@ -112,6 +114,7 @@
     function add(){
       $('#form')[0].reset(); // reset form on modals
       $('#nama_jabatan_bidang').html("");
+      $('#divisi').html("");
       $('#modal-form').modal('show'); // show bootstrap modal
       $('.modal-title').text('Tambah Data Jabatan'); // Set Title to Bootstrap modal title
     }
@@ -122,6 +125,7 @@
 
     function save(){
         $('#nama_jabatan_bidang').html("");
+        $('#divisi').html("");
         $.ajax({
             url : "{{ route('superadmin.jabatan.store')}}",
             type: "POST",
@@ -135,6 +139,9 @@
                 }else{
                     if(data.errors.nama_jabatan_bidang){
                         $('#nama_jabatan_bidang').text(data.errors.nama_jabatan_bidang[0]);
+                    }
+                    if(data.errors.divisi){
+                        $('#divisi').text(data.errors.divisi[0]);
                     }
                 }
             },
@@ -164,6 +171,7 @@
     function edit(id){
         $('#form')[0].reset(); // reset form on modals
         $('#nama_jabatan_bidang').html("");
+        $('#divisi').html("");
         //Ajax Load data from ajax
         $.ajax({
             url : "/superadmin/jabatan/" + id,
@@ -172,6 +180,7 @@
             success: function(data) {
                 $('[name="id"]').val(data.id);
                 $('[name="nama_jabatan_bidang"]').val(data.nama_jabatan_bidang);
+                $('[name="divisi"]').val(data.divisi);
                 $('#modal-form').modal('show'); // show bootstrap modal when complete loaded
                 $('.modal-title').text('Edit Data Jabatan'); // Set title to Bootstrap modal title   
             },
