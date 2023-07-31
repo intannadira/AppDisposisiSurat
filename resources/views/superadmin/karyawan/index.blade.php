@@ -43,8 +43,10 @@
                                 <tr>
                                     <th>No</th>
                                     <th>Nama</th>
-                                    <th>No Telp</th>
                                     <th>Jabatan</th>
+                                    <th>Level</th>
+                                    <th>No Telp</th>
+                                    <th>Tgl Daftar</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -98,6 +100,8 @@
             columns: [
                 {data: 'DT_RowIndex', name: 'DT_RowIndex' , orderable: false, searchable: false},
                 {data: 'nama', name: 'nama'},
+                {data: 'jabatan_bidang.nama_jabatan_bidang', name: 'jabatan_bidang.nama_jabatan_bidang'},
+                {data: 'jabatan.nama_role', name: 'jabatan.nama_role'},
                 {data: 'no_wa', name: 'no_wa'},
                 {data: 'jabatan_bidang.nama_jabatan_bidang', name: 'jabatan_bidang.nama_jabatan_bidang'},   
                 {data: 'action', name: 'action'},
