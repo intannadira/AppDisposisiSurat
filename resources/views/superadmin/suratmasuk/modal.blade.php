@@ -65,8 +65,8 @@
                             <label>Sifat</label>
                             <select class="form-control" name="kategori_surat">
                                 <option value="">-- Pilih Sifat --</option>
-                                <option value="segera">Segera</option>
                                 <option value="sangat-segera">Sangat Segera</option>
+                                <option value="segera">Segera</option>
                                 <option value="biasa">Biasa</option>
                             </select>
                             <span class="text-danger">
