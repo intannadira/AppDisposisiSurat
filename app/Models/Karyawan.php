@@ -21,4 +21,16 @@ class Karyawan extends Model
     {
         return $this->belongsTo(JabatanBidang::class);
     }
+
+    //user jabatan_id
+    public function user()
+    {
+        return $this->hasOne(User::class, 'jabatan_id');
+    }
+
+    //role jabatan_id
+    public function jabatan()
+    {
+        return $this->belongsTo(Role::class, 'id');
+    }
 }
