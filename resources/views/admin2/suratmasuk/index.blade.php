@@ -59,6 +59,7 @@
     </div>
 </div>
 @include('admin2.suratmasuk.modal')
+@include('admin2.suratmasuk.modaldisposisi')
 
 <!-- main content area end -->
 @endsection
@@ -150,6 +151,29 @@
         });
     }
 
+    function save_disposisi(){
+            $.ajax({
+            url : "{{ route('/surat-masuk/disposisi') }}",
+            type: "POST",
+            data: $('#form-disposisi').serialize(),
+            dataType: "JSON",
+            success: function(data){
+                if(data.status) {
+                    $('#modal-disposisi').modal('hide');
+                    reload_table();
+                    sukses();
+                }else{
+                    $('#modal-disposisi').modal('hide');
+                    reload_table();
+                    sukses();
+                }
+            },
+            error: function (jqXHR, textStatus , errorThrown){ 
+                alert(errorThrown);
+            }
+      });
+    }
+
     function info() {
             const Toast = Swal.mixin({
             toast: true,
@@ -203,6 +227,42 @@
         });
     }
 
+    function edit_disposisi(id){
+        $('#form-disposisi')[0].reset(); // reset form on modals
+        $('#no_urut').html("");
+        $('#dari_instansi').html("");
+        $('#no_surat').html("");
+        $('#perihal').html("");
+        $('#tanggal_terima').html("");
+        $('#tanggal_surat').html("");
+        $('#kepada').html("");
+        $('#kategori_surat').html("");
+        $('#tindakan').html("");
+        //Ajax Load data from ajax
+        $.ajax({
+            url : "/admin2/suratmasukadmin2/" + id,
+            type: "GET",
+            dataType: "JSON",
+            success: function(data) {
+                $('[name="id"]').val(data.id);
+                $('[name="no_urut"]').val(data.no_urut);
+                $('[name="dari_instansi"]').val(data.dari_instansi);
+                $('[name="no_surat"]').val(data.no_surat);
+                $('[name="perihal"]').val(data.perihal);
+                $('[name="tanggal_terima"]').val(data.tanggal_terima);
+                $('[name="tanggal_surat"]').val(data.tanggal_surat);
+                $('[name="kepada"]').val(data.kepada);
+                $('[name="kategori_surat"]').val(data.kategori_surat);
+                $('[name="tindakan"]').val(data.tindakan);
+                $('#modal-disposisi').modal('show'); // show bootstrap modal when complete loaded
+                $('.modal-title').text('Verifikasi Data Surat Masuk'); // Set title to Bootstrap modal title   
+            },
+            error: function (jqXHR, textStatus , errorThrown) {
+                alert(errorThrown);
+            }
+        });
+    }
+
    function delete_data(id){
       const swalWithBootstrapButtons = Swal.mixin({
         customClass: {
@@ -246,5 +306,29 @@
       })
     }
 
+</script>
+<script>
+    $('#jabatan_bidang_id').change(function() {
+        var id = $(this).val();
+        
+        $.ajax({
+            url: "/api/karyawan?jabatan_bidang_id=" + id,
+            method: "GET",
+            async: true,
+            dataType: 'json',
+            success: function(data) {
+                document.getElementById("karyawan_id").disabled = false;
+                var html = '';
+                var i;
+                for (i = 0; i < data.length; i++) {
+                    html += '<option value=' + data[i].id + '>' + data[i].nama + '</option>';
+                }
+                $('#karyawan_id').html(html).selectpicker('refresh');
+            }
+        });
+
+
+        return false;
+    });
 </script>
 @endsection

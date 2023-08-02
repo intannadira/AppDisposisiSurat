@@ -251,9 +251,14 @@ Route::group([
             //HistoriSuratKeluarAdmin3
             Route::resource('historisuratkeluaradmin3', HistoriSuratKeluarAdmin3Controller::class);
             Route::get('histori-suratkeluaradmin3/detail', [HistoriSuratKeluarAdmin3Controller::class, 'detail_surat'])->name('historisuratkeluaradmin3.detail');
+
+
         });
 
     });
+
+    Route::post('/surat-masuk/disposisi', [SuratMasukAdmin2Controller::class, 'updateDisposisi'])->name('/surat-masuk/disposisi');
+
 
     //role user1
     Route::group([
