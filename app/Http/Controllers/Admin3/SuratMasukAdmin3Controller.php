@@ -28,8 +28,18 @@ class SuratMasukAdmin3Controller extends Controller
                     if ($data->status == 'diajukan') {
                         $status     = '<a href="javascript:void(0)" class="badge badge-danger">Menunggu</a>';
                     }
+                    
                     if ($data->status == 'didisposisi') {
-                        $status     = '<a href="javascript:void(0)" class="badge badge-warning">Disposisi</a>';
+                        //if data tanggal konfirmasi admin 3 kosong
+                        if($data->tanggal_konfirmasi_admin3 == null){
+                            $status     = '<a href="javascript:void(0)" class="badge badge-warning">Disposisi</a>';
+                        }else{
+                            $status     = '<a href="javascript:void(0)" class="badge badge-warning">Disposisi</a>
+                            <br>
+                            '
+                            . date('d-m-Y', strtotime($data->tanggal_konfirmasi_admin3)) . '
+                            ';
+                        }
                     }
                     if ($data->status == 'dilaksanakan') {
                         $status     = '<a href="javascript:void(0)" class="badge badge-primary">Dilaksanakan</a>';

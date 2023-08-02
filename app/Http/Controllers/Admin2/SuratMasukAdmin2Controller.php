@@ -37,7 +37,7 @@ class SuratMasukAdmin2Controller extends Controller
                     if ($data->status == 'diverifikasi-kasubag') {
                         $status     = '<a href="javascript:void(0)" class="badge badge-warning">Diverfikasi Kasubag</a>
                         <br>
-                        ' . date('d-m-Y', strtotime($data->tanggal_konfirmasi_admin2)) . '
+                        ' . date('d-m-Y', strtotime($data->tanggal_konfirmasi_admin1)) . '
                         ';
                     }
                     if ($data->status == 'diverifikasi-sekdin') {
@@ -70,6 +70,7 @@ class SuratMasukAdmin2Controller extends Controller
                     $actionBtn = '
                             <center>
                             <a href="javascript:void(0)" class="btn btn-sm btn-outline-success" data-toggle="tooltip" data-placement="top" title="Konfirmasi" onclick="edit(' . $row->id . ')"><i class="ti-check"></i> Konfirmasi</a>
+                            <a href="javascript:void(0)" class="btn btn-sm btn-outline-warning" data-toggle="tooltip" data-placement="top" title="Disposisi" onclick="edit_disposisi(' . $row->id . ')"><i class="ti-check"></i> Disposisi</a>
                             <a href="javascript:void(0)" class="btn btn-sm btn-outline-danger" data-toggle="tooltip" data-placement="top" title="Hapus" onclick="delete_data(' . $row->id . ')"><i class="ti-trash"></i></a>
                             </center>';
                     return $actionBtn;
@@ -158,6 +159,38 @@ class SuratMasukAdmin2Controller extends Controller
         }
 
         return response()->json(['status' => true]);
+    }
+
+    public function updateDisposisi(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'isi_disposisi'       => 'required',
+            'jabatan_bidang_id'   => 'required',
+            'karyawan_id'         => 'required',
+            'tindakan_kadin'      => 'required',
+            'catatan_kadin'       => 'required',
+        ]);
+
+        if ($validator->fails())
+        {
+            return response()->json(['errors'=>$validator->errors()]);
+        }
+
+                SuratMasuk::find($request->id)->update(
+                    [
+                        'status'                      => 'didisposisi',
+                        'isi_disposisi'               => $request->isi_disposisi,
+                        'jabatan_bidang_id'           => $request->jabatan_bidang_id,
+                        'karyawan_id'                 => $request->karyawan_id,
+                        'tindakan_kadin'              => $request->tindakan_kadin,
+                        'catatan_kadin'               => $request->catatan_kadin,
+                        'tanggal_penyelesaian'        => date('Y-m-d H:i:s'),
+                        'tanggal_konfirmasi_admin2'   => date('Y-m-d H:i:s'),
+                    ]
+                );
+
+                return response()->json(['status' => true]);
+    
     }
 
     /**
